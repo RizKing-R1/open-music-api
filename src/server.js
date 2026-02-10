@@ -2,6 +2,11 @@ import "dotenv/config";
 import express from "express";
 import albumsRouter from "./api/albums/handler.js";
 import songsRouter from "./api/songs/handler.js";
+import usersRouter from "./api/users/handler.js";
+import authenticationsRouter from "./api/authentications/handler.js";
+import playlistsRouter from "./api/playlists/handler.js";
+import collaborationsRouter from "./api/collaborations/handler.js";
+import authenticate from "./middlewares/authenticate.js";
 import ClientError from "./exceptions/ClientError.js";
 
 const app = express();
@@ -12,6 +17,10 @@ app.use(express.json());
 
 app.use("/albums", albumsRouter);
 app.use("/songs", songsRouter);
+app.use("/users", usersRouter);
+app.use("/authentications", authenticationsRouter);
+app.use("/playlists", authenticate, playlistsRouter);
+app.use("/collaborations", authenticate, collaborationsRouter);
 
 app.use((err, req, res, _next) => {
   if (err instanceof ClientError) {
