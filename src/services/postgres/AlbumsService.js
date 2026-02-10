@@ -1,0 +1,83 @@
+import pg from "pg";
+import { nanoid } from "nanoid";
+import InvariantError from "../../exceptions/InvariantError.js";
+import NotFoundError from "../../exceptions/NotFoundError.js";
+
+const { Pool } = pg;
+
+class AlbumsService {
+  constructor() {
+    this._pool = new Pool();
+  }
+
+  // 1. Tambah Album (POST)
+  async addAlbum({ name, year }) {
+    const id = `album-${nanoid(16)}`;
+    const query = {
+      text: "INSERT INTO albums VALUES($1, $2, $3) RETURNING id",
+      values: [id, name, year],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows[0].id) {
+      throw new InvariantError("Album gagal ditambahkan");
+    }
+
+    return result.rows[0].id;
+  }
+
+  // 2. Lihat Detail Album (GET by ID)
+  async getAlbumById(id) {
+    const query = {
+      text: "SELECT * FROM albums WHERE id = $1",
+      values: [id],
+    };
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new NotFoundError("Album tidak ditemukan");
+    }
+
+    const querySongs = {
+      text: "SELECT id, title, performer FROM songs WHERE \"albumId\" = $1",
+      values: [id],
+    };
+    const resultSongs = await this._pool.query(querySongs);
+
+    return {
+      ...result.rows[0],
+      songs: resultSongs.rows,
+    };
+  }
+
+  // 3. Ubah Album (PUT)
+  async editAlbumById(id, { name, year }) {
+    const query = {
+      text: "UPDATE albums SET name = $1, year = $2 WHERE id = $3 RETURNING id",
+      values: [name, year, id],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new NotFoundError("Gagal memperbarui album. Id tidak ditemukan");
+    }
+  }
+
+  // 4. Hapus Album (DELETE)
+  async deleteAlbumById(id) {
+    const query = {
+      text: "DELETE FROM albums WHERE id = $1 RETURNING id",
+      values: [id],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new NotFoundError("Album gagal dihapus. Id tidak ditemukan");
+    }
+  }
+}
+
+export default AlbumsService;
