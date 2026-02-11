@@ -8,4 +8,3 @@ class AuthenticationError extends ClientError {
 }
 
 export default AuthenticationError;
-

@@ -11,4 +11,3 @@ const UsersValidator = {
 };
 
 export default UsersValidator;
-

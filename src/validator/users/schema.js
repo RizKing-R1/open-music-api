@@ -7,4 +7,3 @@ const UserPayloadSchema = Joi.object({
 });
 
 export default UserPayloadSchema;
-

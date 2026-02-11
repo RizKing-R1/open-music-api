@@ -11,4 +11,3 @@ const CollaborationsValidator = {
 };
 
 export default CollaborationsValidator;
-

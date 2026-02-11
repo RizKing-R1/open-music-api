@@ -59,7 +59,7 @@ router.post("/:id/songs", async (req, res, next) => {
 
     const { id: playlistId } = req.params;
     const { songId } = req.body;
-    const userId = req.userId;
+    const { userId } = req;
 
     await service.verifyPlaylistAccess(playlistId, userId);
     await service.addSongToPlaylist(playlistId, songId);
@@ -77,7 +77,7 @@ router.post("/:id/songs", async (req, res, next) => {
 router.get("/:id/songs", async (req, res, next) => {
   try {
     const { id: playlistId } = req.params;
-    const userId = req.userId;
+    const { userId } = req;
 
     await service.verifyPlaylistAccess(playlistId, userId);
     const playlist = await service.getPlaylistSongs(playlistId);
@@ -97,7 +97,7 @@ router.delete("/:id/songs", async (req, res, next) => {
 
     const { id: playlistId } = req.params;
     const { songId } = req.body;
-    const userId = req.userId;
+    const { userId } = req;
 
     await service.verifyPlaylistAccess(playlistId, userId);
     await service.deleteSongFromPlaylist(playlistId, songId);
@@ -115,7 +115,7 @@ router.delete("/:id/songs", async (req, res, next) => {
 router.get("/:id/activities", async (req, res, next) => {
   try {
     const { id: playlistId } = req.params;
-    const userId = req.userId;
+    const { userId } = req;
 
     await service.verifyPlaylistAccess(playlistId, userId);
     const activities = await service.getPlaylistActivities(playlistId);
@@ -133,4 +133,3 @@ router.get("/:id/activities", async (req, res, next) => {
 });
 
 export default router;
-

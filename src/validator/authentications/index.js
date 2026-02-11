@@ -29,4 +29,3 @@ const AuthenticationsValidator = {
 };
 
 export default AuthenticationsValidator;
-

@@ -18,4 +18,3 @@ export {
   PutAuthenticationPayloadSchema,
   DeleteAuthenticationPayloadSchema,
 };
-

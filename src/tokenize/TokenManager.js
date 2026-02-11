@@ -35,4 +35,3 @@ const TokenManager = {
 };
 
 export default TokenManager;
-

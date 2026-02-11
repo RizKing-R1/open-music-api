@@ -41,4 +41,3 @@ class AuthenticationsService {
 }
 
 export default AuthenticationsService;
-

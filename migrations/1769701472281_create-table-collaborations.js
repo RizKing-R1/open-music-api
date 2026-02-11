@@ -2,7 +2,7 @@ export const up = (pgm) => {
   pgm.createTable("collaborations", {
     id: {
       type: "VARCHAR(50)",
-      primaryKey: true, 
+      primaryKey: true,
     },
     playlist_id: {
       type: "VARCHAR(50)",
