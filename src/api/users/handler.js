@@ -5,7 +5,6 @@ import UsersValidator from "../../validator/users/index.js";
 const router = express.Router();
 const service = new UsersService();
 
-// Registrasi User
 router.post("/", async (req, res, next) => {
   try {
     UsersValidator.validateUserPayload(req.body);

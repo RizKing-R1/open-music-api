@@ -5,7 +5,6 @@ import AlbumsValidator from "../../validator/albums/index.js";
 const router = express.Router();
 const service = new AlbumsService();
 
-// 1. Tambah Album
 router.post("/", async (req, res, next) => {
   try {
     AlbumsValidator.validateAlbumPayload(req.body);
@@ -19,7 +18,6 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// 2. Lihat Detail Album
 router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -33,7 +31,6 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// 3. Edit Album
 router.put("/:id", async (req, res, next) => {
   try {
     AlbumsValidator.validateAlbumPayload(req.body);
@@ -48,7 +45,6 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-// 4. Hapus Album
 router.delete("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;

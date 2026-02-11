@@ -7,7 +7,6 @@ const router = express.Router();
 const collaborationsService = new CollaborationsService();
 const playlistsService = new PlaylistsService(collaborationsService);
 
-// Tambah kolaborator
 router.post("/", async (req, res, next) => {
   try {
     CollaborationsValidator.validateCollaborationPayload(req.body);
@@ -15,7 +14,10 @@ router.post("/", async (req, res, next) => {
     const ownerId = req.userId;
 
     await playlistsService.verifyPlaylistOwner(playlistId, ownerId);
-    const collaborationId = await collaborationsService.addCollaboration(playlistId, userId);
+    const collaborationId = await collaborationsService.addCollaboration(
+      playlistId,
+      userId,
+    );
 
     res.status(201).json({
       status: "success",
@@ -26,7 +28,6 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// Hapus kolaborator
 router.delete("/", async (req, res, next) => {
   try {
     CollaborationsValidator.validateCollaborationPayload(req.body);
@@ -46,4 +47,3 @@ router.delete("/", async (req, res, next) => {
 });
 
 export default router;
-

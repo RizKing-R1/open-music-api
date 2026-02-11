@@ -16,11 +16,13 @@ const authenticate = (req, _res, next) => {
     return;
   }
 
-  const { id } = TokenManager.verifyAccessToken(token);
-
-  req.userId = id;
-
-  next();
+  try {
+    const { id } = TokenManager.verifyAccessToken(token);
+    req.userId = id;
+    next();
+  } catch (error) {
+    next(error);
+  }
 };
 
 export default authenticate;

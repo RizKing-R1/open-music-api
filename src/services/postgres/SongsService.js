@@ -10,7 +10,6 @@ class SongsService {
     this._pool = new Pool();
   }
 
-  // 1. Tambah Lagu
   async addSong({
     title, year, genre, performer, duration, albumId,
   }) {
@@ -29,7 +28,6 @@ class SongsService {
     return result.rows[0].id;
   }
 
-  // 2. Lihat Daftar Lagu (Ringkas)
   async getSongs(title, performer) {
     let text = "SELECT id, title, performer FROM songs";
     const values = [];
@@ -58,7 +56,6 @@ class SongsService {
     return result.rows;
   }
 
-  // 3. Lihat Detail Lagu (Lengkap)
   async getSongById(id) {
     const query = {
       text: "SELECT * FROM songs WHERE id = $1",
@@ -73,7 +70,6 @@ class SongsService {
     return result.rows[0];
   }
 
-  // 4. Ubah Lagu
   async editSongById(id, {
     title, year, genre, performer, duration, albumId,
   }) {
@@ -89,7 +85,6 @@ class SongsService {
     }
   }
 
-  // 5. Hapus Lagu
   async deleteSongById(id) {
     const query = {
       text: "DELETE FROM songs WHERE id = $1 RETURNING id",

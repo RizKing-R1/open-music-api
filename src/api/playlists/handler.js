@@ -7,7 +7,6 @@ const router = express.Router();
 const collaborationsService = new CollaborationsService();
 const service = new PlaylistsService(collaborationsService);
 
-// Buat Playlist
 router.post("/", async (req, res, next) => {
   try {
     PlaylistsValidator.validatePlaylistPayload(req.body);
@@ -24,7 +23,6 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// Lihat Playlist yang dimiliki / dikolaborasi
 router.get("/", async (req, res, next) => {
   try {
     const owner = req.userId;
@@ -38,7 +36,6 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// Hapus Playlist (hanya owner)
 router.delete("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -56,7 +53,6 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
-// Tambah Lagu ke Playlist
 router.post("/:id/songs", async (req, res, next) => {
   try {
     PlaylistsValidator.validatePlaylistSongPayload(req.body);
@@ -78,7 +74,6 @@ router.post("/:id/songs", async (req, res, next) => {
   }
 });
 
-// Lihat Lagu dalam Playlist
 router.get("/:id/songs", async (req, res, next) => {
   try {
     const { id: playlistId } = req.params;
@@ -96,7 +91,6 @@ router.get("/:id/songs", async (req, res, next) => {
   }
 });
 
-// Hapus Lagu dari Playlist
 router.delete("/:id/songs", async (req, res, next) => {
   try {
     PlaylistsValidator.validatePlaylistSongPayload(req.body);
@@ -118,7 +112,6 @@ router.delete("/:id/songs", async (req, res, next) => {
   }
 });
 
-// Lihat aktivitas playlist
 router.get("/:id/activities", async (req, res, next) => {
   try {
     const { id: playlistId } = req.params;

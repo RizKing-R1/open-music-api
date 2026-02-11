@@ -10,7 +10,6 @@ class AlbumsService {
     this._pool = new Pool();
   }
 
-  // 1. Tambah Album (POST)
   async addAlbum({ name, year }) {
     const id = `album-${nanoid(16)}`;
     const query = {
@@ -27,7 +26,6 @@ class AlbumsService {
     return result.rows[0].id;
   }
 
-  // 2. Lihat Detail Album (GET by ID)
   async getAlbumById(id) {
     const query = {
       text: "SELECT * FROM albums WHERE id = $1",
@@ -51,7 +49,6 @@ class AlbumsService {
     };
   }
 
-  // 3. Ubah Album (PUT)
   async editAlbumById(id, { name, year }) {
     const query = {
       text: "UPDATE albums SET name = $1, year = $2 WHERE id = $3 RETURNING id",
@@ -65,7 +62,6 @@ class AlbumsService {
     }
   }
 
-  // 4. Hapus Album (DELETE)
   async deleteAlbumById(id) {
     const query = {
       text: "DELETE FROM albums WHERE id = $1 RETURNING id",

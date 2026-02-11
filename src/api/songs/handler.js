@@ -5,7 +5,6 @@ import SongsValidator from "../../validator/songs/index.js";
 const router = express.Router();
 const service = new SongsService();
 
-// 1. Tambah Lagu
 router.post("/", async (req, res, next) => {
   try {
     SongsValidator.validateSongPayload(req.body);
@@ -19,7 +18,6 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// 2. Lihat Semua Lagu (Bisa Search)
 router.get("/", async (req, res, next) => {
   try {
     const { title, performer } = req.query;
@@ -33,7 +31,6 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// 3. Lihat Detail Lagu
 router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -47,7 +44,6 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// 4. Edit Lagu
 router.put("/:id", async (req, res, next) => {
   try {
     SongsValidator.validateSongPayload(req.body);
@@ -62,7 +58,6 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-// 5. Hapus Lagu
 router.delete("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;

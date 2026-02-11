@@ -8,7 +8,6 @@ const router = express.Router();
 const authenticationsService = new AuthenticationsService();
 const usersService = new UsersService();
 
-// Login
 router.post("/", async (req, res, next) => {
   try {
     AuthenticationsValidator.validatePostAuthenticationPayload(req.body);
@@ -33,7 +32,6 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// Refresh Access Token
 router.put("/", async (req, res, next) => {
   try {
     AuthenticationsValidator.validatePutAuthenticationPayload(req.body);
@@ -55,7 +53,6 @@ router.put("/", async (req, res, next) => {
   }
 });
 
-// Logout
 router.delete("/", async (req, res, next) => {
   try {
     AuthenticationsValidator.validateDeleteAuthenticationPayload(req.body);
