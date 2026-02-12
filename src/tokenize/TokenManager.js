@@ -6,7 +6,7 @@ const TokenManager = {
     payload,
     process.env.ACCESS_TOKEN_KEY,
     {
-      expiresIn: process.env.ACCESS_TOKEN_AGE,
+      expiresIn: Number(process.env.ACCESS_TOKEN_AGE),
     },
   ),
 
