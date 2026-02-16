@@ -10,6 +10,7 @@ import AlbumsValidator from "../../validator/albums/index.js";
 import authenticate from "../../middlewares/authenticate.js";
 import ClientError from "../../exceptions/ClientError.js";
 import InvariantError from "../../exceptions/InvariantError.js";
+import config from "../../utils/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -128,9 +129,7 @@ router.post(
         filename: req.file.originalname,
       });
 
-      const host = process.env.HOST || "localhost";
-      const port = process.env.PORT || 5000;
-      const coverUrl = `http://${host}:${port}/albums/covers/${filename}`;
+      const coverUrl = `http://${config.app.host}:${config.app.port}/albums/covers/${filename}`;
 
       await service.updateAlbumCover(id, coverUrl);
 
@@ -154,17 +153,30 @@ router.post("/:id/likes", authenticate, async (req, res, next) => {
     const alreadyLiked = await albumLikesService.verifyUserLike(userId, id);
 
     if (alreadyLiked) {
-      await albumLikesService.deleteLike(userId, id);
-      return res.status(201).json({
-        status: "success",
-        message: "Like album berhasil dihapus",
-      });
+      throw new InvariantError("Anda sudah menyukai album ini");
     }
 
     await albumLikesService.addLike(userId, id);
     return res.status(201).json({
       status: "success",
       message: "Like album berhasil ditambahkan",
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+router.delete("/:id/likes", authenticate, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { userId } = req;
+
+    await service.getAlbumById(id);
+
+    await albumLikesService.deleteLike(userId, id);
+    return res.json({
+      status: "success",
+      message: "Like album berhasil dihapus",
     });
   } catch (error) {
     return next(error);

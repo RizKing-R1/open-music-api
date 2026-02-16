@@ -2,12 +2,13 @@ import "dotenv/config";
 import amqplib from "amqplib";
 import PlaylistsService from "./services/postgres/PlaylistsService.js";
 import MailSender from "./services/mail/MailSender.js";
+import config from "./utils/config.js";
 
 const playlistsService = new PlaylistsService();
 const mailSender = new MailSender();
 
 const init = async () => {
-  const connection = await amqplib.connect(process.env.RABBITMQ_SERVER);
+  const connection = await amqplib.connect(config.rabbitMq.server);
   const channel = await connection.createChannel();
 
   await channel.assertQueue("export:playlists", { durable: true });

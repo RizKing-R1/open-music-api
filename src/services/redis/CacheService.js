@@ -1,10 +1,11 @@
 import { createClient } from "redis";
+import config from "../../utils/config.js";
 
 class CacheService {
   constructor() {
     this._client = createClient({
       socket: {
-        host: process.env.REDIS_SERVER,
+        host: config.redis.host,
       },
     });
 
@@ -13,6 +14,10 @@ class CacheService {
     });
 
     this._client.connect();
+
+    this.set = this.set.bind(this);
+    this.get = this.get.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   async set(key, value, expirationInSeconds = 1800) {

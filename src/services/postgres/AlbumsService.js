@@ -8,6 +8,12 @@ const { Pool } = pg;
 class AlbumsService {
   constructor() {
     this._pool = new Pool();
+
+    this.addAlbum = this.addAlbum.bind(this);
+    this.getAlbumById = this.getAlbumById.bind(this);
+    this.editAlbumById = this.editAlbumById.bind(this);
+    this.deleteAlbumById = this.deleteAlbumById.bind(this);
+    this.updateAlbumCover = this.updateAlbumCover.bind(this);
   }
 
   async addAlbum({ name, year }) {

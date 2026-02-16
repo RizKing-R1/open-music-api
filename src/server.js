@@ -11,13 +11,13 @@ import collaborationsRouter from "./api/collaborations/handler.js";
 import exportsRouter from "./api/exports/handler.js";
 import authenticate from "./middlewares/authenticate.js";
 import ClientError from "./exceptions/ClientError.js";
+import config from "./utils/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = process.env.PORT || 5000;
-const host = process.env.HOST || "localhost";
+const { port, host } = config.app;
 
 app.use(express.json());
 app.use("/albums/covers", express.static(path.resolve(__dirname, "api/albums/covers")));

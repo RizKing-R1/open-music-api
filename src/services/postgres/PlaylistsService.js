@@ -10,6 +10,17 @@ class PlaylistsService {
   constructor(collaborationsService) {
     this._pool = new Pool();
     this._collaborationsService = collaborationsService;
+
+    this.addPlaylist = this.addPlaylist.bind(this);
+    this.getPlaylists = this.getPlaylists.bind(this);
+    this.deletePlaylistById = this.deletePlaylistById.bind(this);
+    this.verifyPlaylistOwner = this.verifyPlaylistOwner.bind(this);
+    this.verifyPlaylistAccess = this.verifyPlaylistAccess.bind(this);
+    this.addSongToPlaylist = this.addSongToPlaylist.bind(this);
+    this.getPlaylistSongs = this.getPlaylistSongs.bind(this);
+    this.deleteSongFromPlaylist = this.deleteSongFromPlaylist.bind(this);
+    this.addPlaylistActivity = this.addPlaylistActivity.bind(this);
+    this.getPlaylistActivities = this.getPlaylistActivities.bind(this);
   }
 
   async addPlaylist({ name, owner }) {

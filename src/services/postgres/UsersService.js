@@ -9,6 +9,10 @@ const { Pool } = pg;
 class UsersService {
   constructor() {
     this._pool = new Pool();
+
+    this.verifyNewUsername = this.verifyNewUsername.bind(this);
+    this.addUser = this.addUser.bind(this);
+    this.verifyUserCredential = this.verifyUserCredential.bind(this);
   }
 
   async verifyNewUsername(username) {

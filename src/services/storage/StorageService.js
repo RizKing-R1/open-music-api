@@ -8,6 +8,8 @@ class StorageService {
     if (!fs.existsSync(folder)) {
       fs.mkdirSync(folder, { recursive: true });
     }
+
+    this.writeFile = this.writeFile.bind(this);
   }
 
   writeFile(file, meta) {

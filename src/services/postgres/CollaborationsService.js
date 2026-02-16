@@ -9,6 +9,10 @@ const { Pool } = pg;
 class CollaborationsService {
   constructor() {
     this._pool = new Pool();
+
+    this.addCollaboration = this.addCollaboration.bind(this);
+    this.deleteCollaboration = this.deleteCollaboration.bind(this);
+    this.verifyCollaborator = this.verifyCollaborator.bind(this);
   }
 
   async addCollaboration(playlistId, userId) {
