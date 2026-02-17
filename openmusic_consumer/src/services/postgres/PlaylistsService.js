@@ -9,9 +9,8 @@ class PlaylistsService {
 
   async getPlaylistSongs(playlistId) {
     const playlistQuery = {
-      text: `SELECT playlists.id, playlists.name, users.username
+      text: `SELECT playlists.id, playlists.name
              FROM playlists
-             JOIN users ON users.id = playlists.owner
              WHERE playlists.id = $1`,
       values: [playlistId],
     };
