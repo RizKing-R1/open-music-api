@@ -1,13 +1,14 @@
 import nodemailer from "nodemailer";
+import config from "../../utils/config.js";
 
 class MailSender {
   constructor() {
     this._transporter = nodemailer.createTransport({
-      host: process.env.MAIL_HOST,
-      port: process.env.MAIL_PORT,
+      host: config.mail.host,
+      port: config.mail.port,
       auth: {
-        user: process.env.MAIL_ADDRESS,
-        pass: process.env.MAIL_PASSWORD,
+        user: config.mail.address,
+        pass: config.mail.password,
       },
     });
   }
